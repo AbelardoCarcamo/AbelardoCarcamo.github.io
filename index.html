@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexium Security — Ciberseguridad para Empresas en Panamá</title>
+<meta name="description" content="Protegemos tu empresa antes de que alguien más lo haga. Auditorías, hardening y monitoreo de seguridad para PyMEs en Panamá.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050508;
+    --bg2: #0c0c12;
+    --bg3: #111118;
+    --cyan: #00e5ff;
+    --violet: #7c3aed;
+    --violet2: #a855f7;
+    --green: #00ff88;
+    --red: #ff3b5c;
+    --text: #e2e2e8;
+    --muted: #6b6b7a;
+    --border: rgba(0,229,255,0.12);
+    --border2: rgba(124,58,237,0.2);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── GRID BG ── */
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(5,5,8,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-logo .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 12px var(--cyan);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--cyan); }
+
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--cyan);
+    color: var(--cyan) !important;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem !important;
+    transition: all 0.2s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--cyan) !important;
+    color: var(--bg) !important;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 40px 80px;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -200px; left: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-glow2 {
+    position: absolute;
+    bottom: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(0,229,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--cyan);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+    background: rgba(0,229,255,0.05);
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+  }
+
+  h1 .accent {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--cyan);
+    text-stroke: 1px var(--cyan);
+  }
+
+  h1 .accent2 {
+    background: linear-gradient(135deg, var(--cyan), var(--violet2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero-desc {
+    font-size: 1.125rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 40px;
+    max-width: 480px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--cyan);
+    color: var(--bg);
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,229,255,0.3);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: var(--text);
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--violet2);
+    color: var(--violet2);
+  }
+
+  /* HERO VISUAL */
+  .hero-visual {
+    position: relative;
+  }
+
+  .terminal {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(0,229,255,0.06), 0 40px 80px rgba(0,0,0,0.5);
+    animation: floatUp 6s ease-in-out infinite;
+  }
+
+  @keyframes floatUp {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .terminal-bar {
+    background: var(--bg3);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dot-red { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; }
+  .dot-yellow { width: 10px; height: 10px; border-radius: 50%; background: #ffbd2e; }
+  .dot-green { width: 10px; height: 10px; border-radius: 50%; background: #28ca41; }
+
+  .terminal-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-left: 8px;
+  }
+
+  .terminal-body {
+    padding: 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.9;
+  }
+
+  .t-line { display: flex; gap: 12px; }
+  .t-prompt { color: var(--violet2); }
+  .t-cmd { color: var(--cyan); }
+  .t-out { color: var(--muted); padding-left: 24px; }
+  .t-ok { color: var(--green); }
+  .t-warn { color: #ffbd2e; }
+  .t-err { color: var(--red); }
+  .t-cursor {
+    display: inline-block;
+    width: 8px; height: 14px;
+    background: var(--cyan);
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+    margin-left: 4px;
+  }
+
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* ── STATS ── */
+  #stats {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 48px 40px;
+  }
+
+  .stats-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  .stat-item { text-align: center; }
+
+  .stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--cyan), var(--violet2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+  }
+
+  /* ── PROBLEM ── */
+  #problema {
+    position: relative;
+    z-index: 1;
+    padding: 100px 40px;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-tag::before {
+    content: '//';
+    opacity: 0.5;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-top: 60px;
+  }
+
+  .problem-text p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .problem-text strong { color: var(--text); }
+
+  .threat-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .threat-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color 0.2s;
+  }
+
+  .threat-item:hover { border-color: rgba(0,229,255,0.3); }
+
+  .threat-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .threat-content h4 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+  .threat-content p {
+    font-size: 0.825rem;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* ── SERVICES ── */
+  #servicios {
+    position: relative;
+    z-index: 1;
+    padding: 100px 40px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .services-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .services-header p {
+    color: var(--muted);
+    max-width: 520px;
+    margin: 16px auto 0;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .service-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 36px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .card-basic::before { background: var(--green); }
+  .card-medio::before { background: var(--cyan); }
+  .card-avanzado::before { background: linear-gradient(90deg, var(--violet), var(--violet2)); }
+
+  .service-card:hover {
+    border-color: rgba(0,229,255,0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .card-avanzado {
+    border-color: var(--border2);
+    background: linear-gradient(160deg, rgba(124,58,237,0.05) 0%, var(--bg) 60%);
+  }
+
+  .card-badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border: 1px solid;
+  }
+
+  .badge-basic { color: var(--green); border-color: var(--green); background: rgba(0,255,136,0.06); }
+  .badge-medio { color: var(--cyan); border-color: var(--cyan); background: rgba(0,229,255,0.06); }
+  .badge-avanzado { color: var(--violet2); border-color: var(--violet2); background: rgba(168,85,247,0.06); }
+
+  .service-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .service-subtitle {
+    font-size: 0.825rem;
+    color: var(--muted);
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .service-price {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #fff;
+  }
+
+  .service-price-note {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  .service-features {
+    list-style: none;
+    flex: 1;
+    margin-bottom: 32px;
+  }
+
+  .service-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    line-height: 1.5;
+  }
+
+  .service-features li:last-child { border-bottom: none; }
+
+  .service-features li::before {
+    content: '→';
+    color: var(--cyan);
+    flex-shrink: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    margin-top: 1px;
+  }
+
+  .card-avanzado .service-features li::before { color: var(--violet2); }
+  .card-basic .service-features li::before { color: var(--green); }
+
+  .card-cta {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    border-radius: 6px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid;
+  }
+
+  .cta-basic { color: var(--green); border-color: var(--green); }
+  .cta-basic:hover { background: var(--green); color: var(--bg); }
+
+  .cta-medio { color: var(--cyan); border-color: var(--cyan); }
+  .cta-medio:hover { background: var(--cyan); color: var(--bg); }
+
+  .cta-avanzado { color: var(--violet2); border-color: var(--violet2); }
+  .cta-avanzado:hover { background: var(--violet2); color: #fff; }
+
+  /* ── ABOUT ── */
+  #nosotros {
+    position: relative;
+    z-index: 1;
+    padding: 100px 40px;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-size: 1rem;
+  }
+
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 36px;
+  }
+
+  .cert-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    transition: border-color 0.2s;
+  }
+
+  .cert-item:hover { border-color: rgba(0,229,255,0.3); color: var(--text); }
+
+  .cert-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  .about-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .skill-bar-item { }
+
+  .skill-bar-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+  }
+
+  .skill-bar-header span:first-child {
+    font-family: 'Space Mono', monospace;
+    color: var(--text);
+  }
+
+  .skill-bar-header span:last-child { color: var(--muted); }
+
+  .skill-bar-track {
+    height: 6px;
+    background: var(--bg3);
+    border-radius: 100px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .skill-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--violet), var(--cyan));
+    animation: fillBar 1.5s ease-out forwards;
+    transform-origin: left;
+  }
+
+  @keyframes fillBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+  /* ── PROCESS ── */
+  #proceso {
+    position: relative;
+    z-index: 1;
+    padding: 100px 40px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .process-header {
+    text-align: center;
+    margin-bottom: 60px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px; left: 12.5%; right: 12.5%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--violet), var(--cyan));
+    z-index: 0;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-num {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.875rem;
+    color: var(--cyan);
+    margin-bottom: 20px;
+    transition: all 0.2s;
+  }
+
+  .step:hover .step-num {
+    background: var(--cyan);
+    color: var(--bg);
+    border-color: var(--cyan);
+    box-shadow: 0 0 20px rgba(0,229,255,0.4);
+  }
+
+  .step h4 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+
+  .step p {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── CTA ── */
+  #contacto {
+    position: relative;
+    z-index: 1;
+    padding: 120px 40px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  #contacto::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .cta-inner h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 20px;
+  }
+
+  .cta-inner p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25D366;
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-wa:hover {
+    background: #1ebe5b;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(37,211,102,0.3);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    background: var(--bg2);
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .footer-copy {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--cyan); }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+
+    #hero { padding: 100px 20px 60px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    .hero-visual { display: none; }
+
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+    .problem-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+
+    .services-grid { grid-template-columns: 1fr; max-width: 480px; }
+
+    .process-steps {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    .process-steps::before { display: none; }
+
+    #stats, #problema, #servicios, #nosotros, #proceso, #contacto {
+      padding: 60px 20px;
+    }
+
+    footer { padding: 32px 20px; }
+    .footer-inner { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="dot"></span>
+    Nexium Security
+  </a>
+  <ul class="nav-links">
+    <li><a href="#problema">El Problema</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#contacto" class="nav-cta">Contactar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag">Ciberseguridad · Panamá · Blue Team</div>
+      <h1>
+        Protegemos tu empresa<br>
+        <span class="accent2">antes de que</span><br>
+        <span class="accent">alguien más lo haga.</span>
+      </h1>
+      <p class="hero-desc">
+        Auditorías, hardening y monitoreo de seguridad para PyMEs panameñas que no pueden permitirse un incidente. Sin tecnicismos. Sin letra pequeña.
+      </p>
+      <div class="hero-actions">
+        <a href="https://wa.me/50700000000?text=Hola,%20quiero%20información%20sobre%20el%20diagnóstico%20de%20seguridad" class="btn-primary" target="_blank">
+          → Solicitar diagnóstico
+        </a>
+        <a href="#servicios" class="btn-secondary">
+          Ver servicios
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="dot-red"></div>
+          <div class="dot-yellow"></div>
+          <div class="dot-green"></div>
+          <span class="terminal-title">nexium-scan.sh</span>
+        </div>
+        <div class="terminal-body">
+          <div class="t-line"><span class="t-prompt">nexium@sec:~$</span><span class="t-cmd">./audit --target empresa.pa</span></div>
+          <div class="t-out" style="color:#555;margin:4px 0;">Iniciando análisis de superficie...</div>
+          <div class="t-out"><span class="t-ok">✓</span> Puertos abiertos escaneados</div>
+          <div class="t-out"><span class="t-ok">✓</span> Políticas de contraseñas revisadas</div>
+          <div class="t-out"><span class="t-warn">⚠</span> Usuarios con permisos elevados: <span style="color:#ffbd2e">7</span></div>
+          <div class="t-out"><span class="t-err">✗</span> Backups verificados: <span style="color:#ff3b5c">NINGUNO</span></div>
+          <div class="t-out"><span class="t-err">✗</span> 2FA activo: <span style="color:#ff3b5c">NO</span></div>
+          <div class="t-out"><span class="t-warn">⚠</span> Parches pendientes: <span style="color:#ffbd2e">23</span></div>
+          <div class="t-out" style="margin-top:8px; color:#555;">──────────────────────────</div>
+          <div class="t-out"><span style="color:#ff3b5c;">RIESGO CRÍTICO</span> detectado en <span class="t-cmd">4</span> áreas</div>
+          <div class="t-out" style="color:#555;">Generando reporte PDF...</div>
+          <div class="t-line" style="margin-top:8px;"><span class="t-prompt">nexium@sec:~$</span><span class="t-cursor"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat-item fade-in">
+      <div class="stat-number">43%</div>
+      <div class="stat-label">de ciberataques<br>apuntan a PyMEs</div>
+    </div>
+    <div class="stat-item fade-in">
+      <div class="stat-number">$200K</div>
+      <div class="stat-label">costo promedio<br>de un incidente</div>
+    </div>
+    <div class="stat-item fade-in">
+      <div class="stat-number">60%</div>
+      <div class="stat-label">de PyMEs cierran<br>tras un ataque</div>
+    </div>
+    <div class="stat-item fade-in">
+      <div class="stat-number">72h</div>
+      <div class="stat-label">tiempo medio para<br>detectar una brecha</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section id="problema">
+  <div class="section-inner">
+    <div class="section-tag">El problema</div>
+    <h2>Tu empresa es un blanco.<br>¿Está preparada?</h2>
+    <div class="problem-grid">
+      <div class="problem-text fade-in">
+        <p>La mayoría de las <strong>PyMEs en Panamá</strong> operan sin ninguna protección de ciberseguridad. No porque no les importe — sino porque nadie les explicó el riesgo en términos reales.</p>
+        <p>Un robo de datos de clientes, un ransomware que bloquea tus sistemas, o una cuenta de correo comprometida puede <strong>paralizar tu negocio en horas.</strong></p>
+        <p>Nosotros cambiamos eso. Sin jerga técnica, sin contratos interminables. Solo protección real, adaptada a tu empresa.</p>
+      </div>
+      <ul class="threat-list fade-in">
+        <li class="threat-item">
+          <div class="threat-icon">🔐</div>
+          <div class="threat-content">
+            <h4>Contraseñas débiles y reutilizadas</h4>
+            <p>El vector de ataque más común. Una contraseña comprometida puede dar acceso a todo tu sistema.</p>
+          </div>
+        </li>
+        <li class="threat-item">
+          <div class="threat-icon">📧</div>
+          <div class="threat-content">
+            <h4>Phishing y fraude por correo</h4>
+            <p>Empleados que sin saberlo entregan accesos o realizan transferencias a atacantes.</p>
+          </div>
+        </li>
+        <li class="threat-item">
+          <div class="threat-icon">💾</div>
+          <div class="threat-content">
+            <h4>Sin backups verificados</h4>
+            <p>Si no tienes respaldo probado, un ransomware puede borrarte del mapa permanentemente.</p>
+          </div>
+        </li>
+        <li class="threat-item">
+          <div class="threat-icon">⚙️</div>
+          <div class="threat-content">
+            <h4>Sistemas sin actualizar</h4>
+            <p>Vulnerabilidades conocidas que llevan meses sin parchear. Una invitación abierta para atacantes.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="services-header fade-in">
+    <div class="section-tag" style="justify-content:center;">Nuestros servicios</div>
+    <h2>Protección en tres niveles</h2>
+    <p>Desde un diagnóstico inicial hasta monitoreo continuo. Elige el nivel que necesita tu empresa hoy.</p>
+  </div>
+  <div class="services-grid">
+
+    <div class="service-card card-basic fade-in">
+      <span class="card-badge badge-basic">Básico</span>
+      <h3>Nexium Diagnóstico</h3>
+      <p class="service-subtitle">"Saber dónde estás parado"</p>
+      <div class="service-price">$350</div>
+      <div class="service-price-note">Pago único · Entrega en 5 días</div>
+      <ul class="service-features">
+        <li>Escaneo de vulnerabilidades en red local</li>
+        <li>Revisión de cuentas de usuario y permisos</li>
+        <li>Verificación de actualizaciones críticas</li>
+        <li>Auditoría de política de backups</li>
+        <li>Revisión de router y firewall básico</li>
+        <li>Reporte PDF con hallazgos por riesgo</li>
+        <li>Presentación de 30 min con el cliente</li>
+      </ul>
+      <a href="https://wa.me/50700000000?text=Quiero%20el%20paquete%20Diagnóstico" class="card-cta cta-basic" target="_blank">Solicitar ahora →</a>
+    </div>
+
+    <div class="service-card card-medio fade-in">
+      <span class="card-badge badge-medio">Recomendado</span>
+      <h3>Nexium Escudo</h3>
+      <p class="service-subtitle">"Diagnosticar y corregir"</p>
+      <div class="service-price">$800</div>
+      <div class="service-price-note">Pago único · 2–3 semanas</div>
+      <ul class="service-features">
+        <li>Todo lo del paquete Diagnóstico</li>
+        <li>Hardening de sistemas Windows</li>
+        <li>Configuración de Active Directory básico</li>
+        <li>Implementación de política de backups</li>
+        <li>Configuración de autenticación de dos factores</li>
+        <li>Reporte final con documentación</li>
+        <li>Sesión de seguimiento a las 2 semanas</li>
+      </ul>
+      <a href="https://wa.me/50700000000?text=Quiero%20el%20paquete%20Escudo" class="card-cta cta-medio" target="_blank">Solicitar ahora →</a>
+    </div>
+
+    <div class="service-card card-avanzado fade-in">
+      <span class="card-badge badge-avanzado">Mensual</span>
+      <h3>Nexium Guardia</h3>
+      <p class="service-subtitle">"Seguridad como servicio"</p>
+      <div class="service-price">$300<span style="font-size:1rem;color:var(--muted)">/mes</span></div>
+      <div class="service-price-note">Retainer mensual · Sin contrato anual</div>
+      <ul class="service-features">
+        <li>Monitoreo mensual de logs y eventos</li>
+        <li>Alertas ante comportamientos sospechosos</li>
+        <li>Aplicación de parches de seguridad</li>
+        <li>Respuesta a incidentes (hasta 3 hrs/mes)</li>
+        <li>Reporte ejecutivo mensual</li>
+        <li>Acceso directo por WhatsApp para urgencias</li>
+        <li>Revisión trimestral del entorno completo</li>
+      </ul>
+      <a href="https://wa.me/50700000000?text=Quiero%20el%20paquete%20Guardia" class="card-cta cta-avanzado" target="_blank">Solicitar ahora →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <div class="section-tag">Sobre Nexium</div>
+      <h2>Conocimiento técnico.<br>Enfoque humano.</h2>
+      <p>Nexium Security nació con una misión clara: hacer que la ciberseguridad profesional sea accesible para las empresas panameñas que más la necesitan — las PyMEs.</p>
+      <p>Especialistas en operaciones defensivas (Blue Team), con formación en las plataformas y metodologías que usan las empresas Fortune 500 — aplicadas a la escala y el presupuesto de tu empresa.</p>
+      <div class="certs-grid">
+        <div class="cert-item"><div class="cert-dot"></div>IBM Cybersecurity</div>
+        <div class="cert-item"><div class="cert-dot"></div>Cisco Networking</div>
+        <div class="cert-item"><div class="cert-dot"></div>Splunk SIEM</div>
+        <div class="cert-item"><div class="cert-dot"></div>Active Directory</div>
+        <div class="cert-item"><div class="cert-dot"></div>NYU · Johns Hopkins</div>
+        <div class="cert-item"><div class="cert-dot"></div>Google · Infosec</div>
+      </div>
+    </div>
+    <div class="about-visual fade-in">
+      <div class="section-tag" style="margin-bottom:24px;">Áreas de expertise</div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-header"><span>Active Directory</span><span>Avanzado</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div>
+      </div>
+      <br>
+      <div class="skill-bar-item">
+        <div class="skill-bar-header"><span>Splunk SIEM</span><span>Avanzado</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+      </div>
+      <br>
+      <div class="skill-bar-item">
+        <div class="skill-bar-header"><span>Hardening de sistemas</span><span>Avanzado</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+      </div>
+      <br>
+      <div class="skill-bar-item">
+        <div class="skill-bar-header"><span>Evaluación de vulnerabilidades</span><span>Intermedio</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:78%"></div></div>
+      </div>
+      <br>
+      <div class="skill-bar-item">
+        <div class="skill-bar-header"><span>Respuesta a incidentes</span><span>Intermedio</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="process-header fade-in">
+    <div class="section-tag" style="justify-content:center;">Cómo trabajamos</div>
+    <h2>Simple. Transparente. Efectivo.</h2>
+  </div>
+  <div class="process-steps">
+    <div class="step fade-in">
+      <div class="step-num">01</div>
+      <h4>Llamada inicial</h4>
+      <p>30 minutos para entender tu empresa, tus sistemas y tus preocupaciones.</p>
+    </div>
+    <div class="step fade-in">
+      <div class="step-num">02</div>
+      <h4>Propuesta clara</h4>
+      <p>Recibes un documento de una página con exactamente lo que haremos y cuánto cuesta.</p>
+    </div>
+    <div class="step fade-in">
+      <div class="step-num">03</div>
+      <h4>Ejecución</h4>
+      <p>Trabajamos en tu entorno con mínima interrupción a tus operaciones.</p>
+    </div>
+    <div class="step fade-in">
+      <div class="step-num">04</div>
+      <h4>Reporte + seguimiento</h4>
+      <p>Entrega de resultados en lenguaje claro. Sin tecnicismos innecesarios.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="contacto">
+  <div class="cta-inner">
+    <div class="section-tag" style="justify-content:center;">¿Listo para proteger tu empresa?</div>
+    <h2>Empieza con un<br><span class="accent2">diagnóstico gratuito</span></h2>
+    <p>Una llamada de 15 minutos para evaluar si tu empresa tiene riesgos inmediatos. Sin costo, sin compromiso.</p>
+    <div class="cta-buttons">
+      <a href="https://wa.me/50700000000?text=Hola,%20quiero%20una%20evaluación%20gratuita%20para%20mi%20empresa" class="btn-wa" target="_blank">
+        💬 Escribir por WhatsApp
+      </a>
+      <a href="mailto:abelardo@nexiumsecurity.tech" class="btn-secondary">
+        📧 Enviar correo
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <span style="width:6px;height:6px;border-radius:50%;background:var(--cyan);display:inline-block;"></span>
+      Nexium Security
+    </div>
+    <span class="footer-copy">© 2025 Nexium Security · Panamá · nexiumsecurity.tech</span>
+    <ul class="footer-links">
+      <li><a href="https://linkedin.com/in/abelardocb" target="_blank">LinkedIn</a></li>
+      <li><a href="mailto:abelardo@nexiumsecurity.tech">Email</a></li>
+      <li><a href="https://wa.me/50700000000" target="_blank">WhatsApp</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Stagger fade-in children
+  document.querySelectorAll('.stats-grid, .services-grid, .process-steps').forEach(container => {
+    const children = container.querySelectorAll('.fade-in');
+    children.forEach((child, i) => {
+      child.style.transitionDelay = `${i * 0.12}s`;
+    });
+  });
+</script>
+
+</body>
+</html>
