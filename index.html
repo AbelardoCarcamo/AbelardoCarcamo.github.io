@@ -7,19 +7,11 @@
 <meta name="description" content="Protegemos tu empresa antes de que alguien más lo haga. Auditorías, hardening y monitoreo de seguridad para PyMEs en Panamá.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #ffffff;
-  --bg-alt: #f7f9fb;
-  --primary: #0f172a;
-  --secondary: #334155;
-  --accent: #2563eb;
-  --border: #e5e7eb;
-  --text: #111827;
-  --muted: #6b7280;
-}
-
+/* ------------------------------------------------------------------
+   RESET & BASE (Corporativo / Minimalista)
+------------------------------------------------------------------ */
 *,
 *::before,
 *::after {
@@ -28,20 +20,119 @@
   padding: 0;
 }
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
+:root {
+  /* Paleta corporativa */
+  --color-primary: #0f2b3d;
+  --color-secondary: #2c4c6b;
+  --color-accent: #1e6f9f;
+  --color-accent-light: #eef4fc;
+  --color-gray-100: #f8fafc;
+  --color-gray-200: #eef2f6;
+  --color-gray-300: #e2e8f0;
+  --color-gray-400: #cbd5e1;
+  --color-gray-500: #94a3b8;
+  --color-gray-600: #475569;
+  --color-gray-700: #334155;
+  --color-gray-800: #1e293b;
+  --color-gray-900: #0f172a;
+  --color-text: #1e293b;
+  --color-text-muted: #5b6e8c;
+  --color-border: #e4e9f0;
+  --color-white: #ffffff;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 3px 0 rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
 }
 
-/* NAV */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background-color: var(--color-white);
+  color: var(--color-text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+}
+
+/* ------------------------------------------------------------------
+   TIPOGRAFÍA CORPORATIVA
+------------------------------------------------------------------ */
+h1, h2, h3, h4, .nav-logo, .btn-primary, .btn-secondary, .card-cta {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: 3.2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: var(--color-gray-900);
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  color: var(--color-gray-800);
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+}
+
+.section-tag {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+  display: inline-block;
+  background: var(--color-accent-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+}
+
+/* ------------------------------------------------------------------
+   LAYOUT & CONTENEDORES
+------------------------------------------------------------------ */
+.section-inner, .hero-inner, .footer-inner, .cta-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+section {
+  padding: 5rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+section:last-of-type {
+  border-bottom: none;
+}
+
+/* ------------------------------------------------------------------
+   NAVEGACIÓN (Sticky limpio)
+------------------------------------------------------------------ */
 nav {
   position: sticky;
   top: 0;
-  background: #ffffff;
-  border-bottom: 1px solid var(--border);
-  padding: 16px 40px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(4px);
+  border-bottom: 1px solid var(--color-border);
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -49,169 +140,536 @@ nav {
 }
 
 .nav-logo {
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--primary);
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--color-primary);
   text-decoration: none;
+  letter-spacing: -0.3px;
 }
 
 .nav-links {
   display: flex;
-  gap: 24px;
+  gap: 2rem;
   list-style: none;
 }
 
 .nav-links a {
-  font-size: 0.85rem;
-  color: var(--secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-gray-700);
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .nav-links a:hover {
-  color: var(--primary);
+  color: var(--color-accent);
 }
 
 .nav-cta {
-  background: var(--accent);
-  color: #fff !important;
-  padding: 8px 16px;
-  border-radius: 6px;
+  background: transparent;
+  color: var(--color-accent) !important;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  border: 1px solid var(--color-accent);
 }
 
-/* HERO */
+.nav-cta:hover {
+  background: var(--color-accent-light);
+}
+
+/* ------------------------------------------------------------------
+   HERO (Minimalista, con confianza)
+------------------------------------------------------------------ */
 #hero {
-  padding: 100px 40px;
+  padding: 4rem 0 3rem 0;
+  background: linear-gradient(to bottom, #ffffff, var(--color-gray-100));
 }
 
 .hero-inner {
-  max-width: 1100px;
-  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  gap: 3rem;
+  align-items: center;
 }
 
-h1 {
-  font-size: 2.8rem;
-  font-weight: 700;
-  margin-bottom: 20px;
+.hero-tag {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
 }
 
 .hero-desc {
-  color: var(--muted);
-  margin-bottom: 30px;
+  font-size: 1.1rem;
+  color: var(--color-gray-600);
+  margin-bottom: 2rem;
+  max-width: 90%;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .btn-primary {
-  background: var(--accent);
-  color: #fff;
-  padding: 12px 22px;
-  border-radius: 6px;
+  display: inline-block;
+  background: var(--color-accent);
+  color: white;
+  padding: 0.75rem 1.8rem;
+  border-radius: 40px;
   text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background 0.2s, transform 0.05s;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #0a5a88;
 }
 
 .btn-secondary {
-  border: 1px solid var(--border);
-  padding: 12px 22px;
-  border-radius: 6px;
+  display: inline-block;
+  background: transparent;
+  color: var(--color-gray-700);
+  padding: 0.75rem 1.8rem;
+  border-radius: 40px;
   text-decoration: none;
-  color: var(--secondary);
+  font-weight: 500;
+  font-size: 0.9rem;
+  border: 1px solid var(--color-gray-300);
+  transition: all 0.2s;
 }
 
-/* SECTIONS */
-section {
-  padding: 80px 40px;
+.btn-secondary:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-accent-light);
 }
 
-.section-inner {
-  max-width: 1100px;
+/* Terminal (minimal, profesional) */
+.terminal {
+  background: #0f172a;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid #1e2a3e;
+}
+
+.terminal-bar {
+  background: #1e293b;
+  padding: 0.7rem 1rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.dot-red, .dot-yellow, .dot-green {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dot-red { background: #ff5f56; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green { background: #27c93f; }
+
+.terminal-title {
+  margin-left: auto;
+  font-family: monospace;
+  font-size: 0.7rem;
+  color: #94a3b8;
+}
+
+.terminal-body {
+  padding: 1.2rem;
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 0.75rem;
+  color: #cbd5e1;
+}
+
+.t-prompt {
+  color: #38bdf8;
+}
+
+.t-cmd {
+  color: #facc15;
+  margin-left: 0.5rem;
+}
+
+.t-ok { color: #4ade80; }
+.t-warn { color: #facc15; }
+.t-err { color: #f87171; }
+
+/* ------------------------------------------------------------------
+   STATS (datos duros, confianza)
+------------------------------------------------------------------ */
+#stats {
+  background: var(--color-white);
+  padding: 3rem 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1280px;
   margin: 0 auto;
+  text-align: center;
 }
 
-h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
+.stat-number {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
 }
 
-/* CARDS */
-.service-card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 24px;
-  transition: all 0.2s ease;
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--color-gray-600);
+  line-height: 1.4;
 }
 
-.service-card:hover {
-  border-color: var(--accent);
+/* ------------------------------------------------------------------
+   PROBLEMA (listado con íconos)
+------------------------------------------------------------------ */
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.threat-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.threat-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.threat-icon {
+  font-size: 1.5rem;
+  background: var(--color-gray-100);
+  padding: 0.5rem;
+  border-radius: 12px;
+}
+
+.threat-content h4 {
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------------
+   SERVICIOS (cards limpias, corporate)
+------------------------------------------------------------------ */
+.services-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 3rem auto;
 }
 
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
 }
+
+.service-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 1.8rem;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.service-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.card-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0.2rem 0.8rem;
+  border-radius: 30px;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.badge-basic { background: #eef2ff; color: #1e40af; }
+.badge-medio { background: #e0f2fe; color: #0369a1; }
+.badge-avanzado { background: #ecfdf5; color: #065f46; }
 
 .service-price {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
-  margin: 10px 0;
+  color: var(--color-gray-900);
+  margin: 1rem 0 0.25rem;
 }
 
-/* STATS */
-.stats-grid {
+.service-price-note {
+  font-size: 0.7rem;
+  color: var(--color-gray-500);
+  margin-bottom: 1.5rem;
+}
+
+.service-features {
+  list-style: none;
+  margin: 1.5rem 0;
+}
+
+.service-features li {
+  font-size: 0.85rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed var(--color-gray-200);
+  color: var(--color-gray-700);
+}
+
+.card-cta {
+  display: block;
+  text-align: center;
+  padding: 0.7rem;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.cta-basic {
+  border: 1px solid var(--color-gray-300);
+  color: var(--color-gray-800);
+}
+.cta-basic:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+}
+.cta-medio {
+  background: var(--color-accent);
+  color: white;
+}
+.cta-medio:hover {
+  background: #0a5a88;
+}
+.cta-avanzado {
+  background: var(--color-primary);
+  color: white;
+}
+.cta-avanzado:hover {
+  background: #0a2a3b;
+}
+
+/* ------------------------------------------------------------------
+   NOSOTROS (skill bars limpias)
+------------------------------------------------------------------ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.certs-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.cert-item {
+  background: var(--color-gray-100);
+  padding: 0.3rem 1rem;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-gray-700);
+}
+
+.skill-bar-item {
+  margin-bottom: 1rem;
+}
+.skill-bar-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+}
+.skill-bar-track {
+  background: var(--color-gray-200);
+  height: 5px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.skill-bar-fill {
+  background: var(--color-accent);
+  height: 100%;
+  width: 0%;
+  border-radius: 10px;
+}
+
+/* ------------------------------------------------------------------
+   PROCESO (pasos)
+------------------------------------------------------------------ */
+.process-steps {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 2rem;
+  margin-top: 2rem;
   text-align: center;
 }
 
-.stat-number {
+.step-num {
   font-size: 2rem;
   font-weight: 700;
+  color: var(--color-accent-light);
+  -webkit-text-stroke: 1px var(--color-accent);
+  color: transparent;
+  margin-bottom: 1rem;
 }
 
-/* FOOTER */
+/* ------------------------------------------------------------------
+   CTA FINAL (contacto)
+------------------------------------------------------------------ */
+#contacto {
+  background: var(--color-gray-100);
+  text-align: center;
+  border-radius: 0;
+  margin-top: 0;
+}
+
+.cta-inner {
+  max-width: 700px;
+}
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.btn-wa {
+  background: #075e54;
+  color: white;
+  padding: 0.7rem 1.8rem;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------------
+   FOOTER
+------------------------------------------------------------------ */
 footer {
-  background: var(--bg-alt);
-  padding: 40px;
-  border-top: 1px solid var(--border);
+  background: var(--color-white);
+  border-top: 1px solid var(--color-border);
+  padding: 2rem 0;
 }
-
 .footer-inner {
-  max-width: 1100px;
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
+  gap: 1rem;
 }
-
+.footer-logo {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+.footer-links a {
+  text-decoration: none;
+  font-size: 0.8rem;
+  color: var(--color-gray-600);
+}
 .footer-copy {
-  font-size: 0.85rem;
-  color: var(--muted);
+  font-size: 0.75rem;
+  color: var(--color-gray-500);
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .hero-inner,
-  .services-grid,
-  .stats-grid {
+/* ------------------------------------------------------------------
+   ANIMACIONES SUTILES (fade-in)
+------------------------------------------------------------------ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ------------------------------------------------------------------
+   RESPONSIVE (adaptación sin perder profesionalismo)
+------------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .services-grid, .stats-grid, .process-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hero-inner, .problem-grid, .about-grid {
     grid-template-columns: 1fr;
   }
+  .hero-desc {
+    max-width: 100%;
+  }
+  .terminal {
+    max-width: 100%;
+  }
+}
 
+@media (max-width: 768px) {
   nav {
-    padding: 16px 20px;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem;
+  }
+  h1 {
+    font-size: 2.2rem;
+  }
+  section {
+    padding: 3rem 0;
+  }
+  .services-grid, .stats-grid, .process-steps {
+    grid-template-columns: 1fr;
+  }
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
   }
 }
 </style>
 </head>
 <body>
 
-
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
-    <span class="dot"></span>
     Nexium Security
   </a>
   <ul class="nav-links">
@@ -230,15 +688,15 @@ footer {
       <div class="hero-tag">Ciberseguridad · Panamá · Blue Team</div>
       <h1>
         Protegemos tu empresa<br>
-        <span class="accent2">antes de que</span><br>
-        <span class="accent">alguien más lo haga.</span>
+        antes de que<br>
+        alguien más lo haga.
       </h1>
       <p class="hero-desc">
         Auditorías, hardening y monitoreo de seguridad para PyMEs panameñas que no pueden permitirse un incidente. Sin tecnicismos. Sin letra pequeña.
       </p>
       <div class="hero-actions">
         <a href="https://wa.me/50762370808?text=Hola,%20quiero%20información%20sobre%20el%20diagnóstico%20de%20seguridad" class="btn-primary" target="_blank">
-          → Solicitar diagnóstico
+          Solicitar diagnóstico
         </a>
         <a href="#servicios" class="btn-secondary">
           Ver servicios
@@ -388,7 +846,7 @@ footer {
       <span class="card-badge badge-avanzado">Mensual</span>
       <h3>Nexium Guardia</h3>
       <p class="service-subtitle">"Seguridad como servicio"</p>
-      <div class="service-price">$300<span style="font-size:1rem;color:var(--muted)">/mes</span></div>
+      <div class="service-price">$300<span style="font-size:1rem;color:var(--color-gray-500);">/mes</span></div>
       <div class="service-price-note">Retainer mensual · Sin contrato anual</div>
       <ul class="service-features">
         <li>Monitoreo mensual de logs y eventos</li>
@@ -484,64 +942,4 @@ footer {
 
 <!-- CTA FINAL -->
 <section id="contacto">
-  <div class="cta-inner">
-    <div class="section-tag" style="justify-content:center;">¿Listo para proteger tu empresa?</div>
-    <h2>Empieza con un<br><span class="accent2">diagnóstico gratuito</span></h2>
-    <p>Una llamada de 15 minutos para evaluar si tu empresa tiene riesgos inmediatos. Sin costo, sin compromiso.</p>
-    <div class="cta-buttons">
-      <a href="https://wa.me/50762370808?text=Hola,%20quiero%20una%20evaluación%20gratuita%20para%20mi%20empresa" class="btn-wa" target="_blank">
-        💬 Escribir por WhatsApp
-      </a>
-      <a href="mailto:info@nexium-security.tech" class="btn-secondary">
-        📧 Enviar correo
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">
-      <span style="width:6px;height:6px;border-radius:50%;background:var(--cyan);display:inline-block;"></span>
-      Nexium Security
-    </div>
-    <span class="footer-copy">© 2026 Nexium Security · Panamá · nexium-security.tech</span>
-    <ul class="footer-links">
-      <li><a href="https://www.linkedin.com/company/nexium-security/" target="_blank">LinkedIn</a></li>
-      <li><a href="mailto:info@nexium-security.tech">Email</a></li>
-      <li><a href="https://wa.me/50762370808" target="_blank">WhatsApp</a></li>
-    </ul>
-  </div>
-</footer>
-
-<script>
-  // Intersection Observer for fade-in animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, 100);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-  // Smooth scroll for nav links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-
-  // Stagger fade-in children
-  document.querySelectorAll('.stats-grid, .services-grid, .process-steps').forE
-</script>
-
-</body>
-</html>
+  <
