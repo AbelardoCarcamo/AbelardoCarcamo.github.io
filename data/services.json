@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Diagnostico de seguridad",
+    "description": "Revision de controles, exposicion externa, configuraciones y riesgos prioritarios con informe ejecutivo.",
+    "price": 850
+  },
+  {
+    "name": "Hardening de sistemas",
+    "description": "Fortalecimiento de servidores, endpoints, politicas de acceso, respaldo y configuracion segura.",
+    "price": 1450
+  },
+  {
+    "name": "Monitoreo SOC",
+    "description": "Supervision mensual de alertas, bitacoras, eventos criticos y respuesta inicial ante incidentes.",
+    "price": 1200,
+    "billing": "monthly"
+  }
+]
