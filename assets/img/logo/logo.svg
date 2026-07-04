@@ -1,0 +1,9 @@
+<svg width="320" height="320" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Logo Nexium Security</title>
+  <desc id="desc">Escudo futurista con la letra N al centro.</desc>
+  <rect width="320" height="320" rx="72" fill="#07111F"/>
+  <path d="M160 34L262 75V151C262 217 219 269 160 290C101 269 58 217 58 151V75L160 34Z" fill="#0D1D31" stroke="#19D3FF" stroke-width="10"/>
+  <path d="M104 216V101H130L190 171V101H218V216H192L132 146V216H104Z" fill="#EEF6FF"/>
+  <path d="M83 94L160 62L237 94" stroke="#2F8CFF" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="160" cy="245" r="10" fill="#38D996"/>
+</svg>

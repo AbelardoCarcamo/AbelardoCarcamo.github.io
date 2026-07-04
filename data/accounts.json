@@ -1,0 +1,7 @@
+{
+  "Activo": ["Caja", "Bancos", "Equipo tecnologico", "Cuentas por cobrar"],
+  "Pasivo": ["Prestamos", "Cuentas por pagar", "Servicios pendientes"],
+  "Patrimonio": ["Capital social", "Utilidad retenida", "Utilidad neta"],
+  "Ingresos": ["Servicios SOC", "Diagnosticos", "Hardening"],
+  "Gastos": ["Licencias", "Publicidad", "Cloud", "Capacitacion"]
+}
